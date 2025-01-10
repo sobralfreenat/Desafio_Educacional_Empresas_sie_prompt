@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerador de Prompt</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: black; /* Cabeçalho preto */
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        input[type="text"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            display: block;
+            width: 33%;
+            padding: 10px;
+            background-color: gray;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: darkgreen;
+        }
+        textarea {
+            width: 100%;
+            height: 200px;
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-family: Arial, sans-serif;
+            font-size: 14px;
+            resize: none;
+        }
+        /* Estilos do Popup */
+        .popup {
+            display: none;
+            position: fixed;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 440px;
+            background-color: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+        .popup-content {
+            padding: 20px;
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Gerador DIagnóstico de Desafio e Prompt para Plano de Ação</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Desafios e Soluções</th>
+                <th>Fluxo de Caixa</th>
+                <th>Como Fazer</th>
+                <th>Público-Alvo B2B</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1.1 Qual o principal desafio que você enfrenta?<br><input type="text" placeholder="Ex: Reduzir custos operacionais" /></td>
+                <td>2.1 Qual é o custo médio por cliente?<br><input type="text" placeholder="Ex: R$100 por cliente" /></td>
+                <td>3.1 Como você pode melhorar a eficiência?<br><input type="text" placeholder="Ex: Implementar novas tecnologias" /></td>
+                <td>4.1 Quem são seus principais clientes?<br><input type="text" placeholder="Ex: Empresas de pequeno porte" /></td>
+            </tr>
+            <tr>
+                <td>1.2 Quanto vale resolver esse desafio?<br><input type="text" placeholder="Ex: R$5.000 por mês" /></td>
+                <td>2.2 Qual a receita média gerada por cliente?<br><input type="text" placeholder="Ex: R$300 por cliente" /></td>
+                <td>3.2 O que pode simplificar o processo?<br><input type="text" placeholder="Ex: Automatizar tarefas repetitivas" /></td>
+                <td>4.2 Que tipos de empresas você atende?<br><input type="text" placeholder="Ex: Indústrias e comércio" /></td>
+            </tr>
+            <tr>
+                <td>1.3 Você tem capacidade para entregar essa solução?<br><input type="text" placeholder="Ex: Sim, temos equipe disponível" /></td>
+                <td>2.3 Quanto tempo leva para gerar receita por cliente?<br><input type="text" placeholder="Ex: 30 dias" /></td>
+                <td>3.3 Como você pode reduzir riscos para o cliente?<br><input type="text" placeholder="Ex: Oferecer garantias" /></td>
+                <td>4.3 Quais setores você atende?<br><input type="text" placeholder="Ex: Tecnologia e serviços" /></td>
+            </tr>
+            <tr>
+                <td>1.4 Como você pode mitigar riscos para o cliente?<br><input type="text" placeholder="Ex: Contratos claros" /></td>
+                <td></td>
+                <td>3.4 Como você pode atender às necessidades do cliente?<br><input type="text" placeholder="Ex: Personalizar serviços" /></td>
+                <td>4.4 Que segmentos de mercado você atende?<br><input type="text" placeholder="Ex: Varejo e atacado" /></td>
+            </tr>
+            <tr>
+                <td>1.5 Como você pode tornar o processo mais rápido e fácil?<br><input type="text" placeholder="Ex: Usar plataformas digitais" /></td>
+                <td></td>
+                <td></td>
+                <td>4.5 Que organizações você gostaria de atingir?<br><input type="text" placeholder="Ex: Startups e grandes empresas" /></td>
+            </tr>
+            <tr>
+                <td>1.6 Como você pode evitar competir apenas por preço?<br><input type="text" placeholder="Ex: Oferecer valor agregado" /></td>
+                <td></td>
+                <td></td>
+                <td>4.6 Que parcerias estratégicas você tem?<br><input type="text" placeholder="Ex: Fornecedores e distribuidores" /></td>
+            </tr>
+        </tbody>
+    </table>
+    <button onclick="generatePrompt()">Gerar Prompt</button>
+    <button onclick="copyPrompt()">Copiar Prompt</button>
+    <button onclick="openDropdown()">Selecionar IA</button>
+    <button onclick="saveScenario()">Salvar Cenário</button>
+    <button onclick="loadScenario()">Carregar Cenário</button>
+
+    <textarea id="promptOutput" placeholder="O prompt gerado aparecerá aqui..." readonly></textarea>
+
+    <!-- Popup for IA Selection -->
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <div class="popup-content">
+            <h2>Selecione uma IA</h2>
+            <select id="iaSelect">
+                <option value="">Escolha uma IA</option>
+                <option value="chatgpt">Chat GPT</option>
+                <option value="monica">Mônica</option>
+                <option value="gemini">M.A.E. SDR Ian </option>
+                <option value="custom">URL Personalizada</option>
+            </select>
+            <input type="text" id="customUrl" placeholder="Digite a URL personalizada" />
+            <button onclick="openSelectedIA()">Abrir IA Selecionada</button>
+            <button onclick="closePopup()">Fechar</button>
+        </div>
+    </div>
+
+    <script>
+    let popupWindow = null; // Variável para armazenar a janela pop-up
+
+    function generatePrompt() {
+        const inputs = document.querySelectorAll('input');
+        let userResponses = [];
+        inputs.forEach(input => {
+            userResponses.push(input.value);
+        });
+
+        const prompt = `Com base nas seguintes respostas, elabore um plano de ação que explique como os princípios [ Plano de A\u00e7\u00e3o para desenvolvimento de negocios], desenvolvidos por [Universaidde de HArvard], e que podem ser aplicados em [Educa\u00e7\u00e3o Corporativa] utilizando 5w2h.
+
+
+
+URLs de Referência Fornecidas:
+- https://ssgresultados.com.br/blog/o-poder-do-plano-de-acao-bem-elaborado-e-bem-executado-como-tirar-a-estrategia-do-papel-e-bater-as-metas/
+
+Requisitos:
+ voce é um acelerador de desenvlvimento de negócios na area de edicação corporativa e correlacione as respostas:\n\n
+        **Desafios e Soluções:**\n
+        1. Desafio: ${userResponses[0]}\n
+        2. Valor de resolver: ${userResponses[1]}\n
+        3. Possibilidade de entrega: ${userResponses[2]}\n
+        4. Eliminação de risco: ${userResponses[3]}\n
+        5. Facilidade e rapidez: ${userResponses[4]}\n
+        6. Competição por preço: ${userResponses[5]}\n\n
+        **Fluxo de Caixa:**\n
+        1. Custo por cliente: ${userResponses[6]}\n
+        2. Geração por cliente: ${userResponses[7]}\n
+        3. Tempo para gerar receita: ${userResponses[8]}\n\n
+        **Como Fazer:**\n
+        1. Mais rápido: ${userResponses[9]}\n
+        2. Mais fácil: ${userResponses[10]}\n
+        3. Sem risco: ${userResponses[11]}\n
+        4. Entrega no formato necessário: ${userResponses[12]}\n\n
+        **Público-Alvo B2B:**\n
+        1. Clientes principais: ${userResponses[13]}\n
+        2. Tipos de empresas atendidas: ${userResponses[14]}\n
+        3. Setores atendidos: ${userResponses[15]}\n
+        4. Segmentos de mercado: ${userResponses[16]}\n
+        5. Organizações desejadas: ${userResponses[17]}\n
+        6. Parcerias estratégicas: ${userResponses[18]}`;
+
+        document.getElementById('promptOutput').value = prompt;
+    }
+
+    function copyPrompt() {
+        const promptOutput = document.getElementById('promptOutput');
+        promptOutput.select();
+        document.execCommand('copy');
+        alert('Prompt copiado para a área de transferência!');
+    }
+
+    function openDropdown() {
+        document.getElementById('overlay').style.display = 'block';
+        document.getElementById('popup').style.display = 'block';
+    }
+
+    function closePopup() {
+        document.getElementById('overlay').style.display = 'none';
+        document.getElementById('popup').style.display = 'none';
+        document.getElementById('customUrl').value = ''; // Limpa o campo de URL personalizada ao fechar
+    }
+
+    function openSelectedIA() {
+        const selectedIA = document.getElementById('iaSelect').value;
+        const customUrl = document.getElementById('customUrl').value.trim();
+        let url = '';
+
+        if (selectedIA === 'custom' && customUrl) {
+            url = customUrl;
+        } else {
+            switch (selectedIA) {
+                case 'chatgpt':
+                    url = 'https://chat.openai.com'; // Link para o Chat GPT
+                    break;
+                case 'monica':
+                    url = 'https://monica.im/home/chat/Monica/monica'; // Link para a Mônica
+                    break;
+                case 'gemini':
+                    url = 'https://dash.superagentes.ai/@ian_mae_info'; // Link para o Gemini
+                    break;
+                default:
+                    alert('Por favor, selecione uma IA ou insira uma URL personalizada.');
+                    return;
+            }
+        }
+
+        // Verifica se a janela já está aberta
+        if (popupWindow && !popupWindow.closed) {
+            popupWindow.focus(); // Foca na janela existente
+        } else {
+            const width = window.innerWidth * 0.33; // 33% da largura da tela
+            const height = window.innerHeight * 0.66; // 66% da altura da tela
+            const left = (window.innerWidth / 2) - (width / 2); // Centraliza horizontalmente
+            const top = (window.innerHeight / 2) - (height / 2); // Centraliza verticalmente
+
+            popupWindow = window.open(url, 'popupWindow', `width=${width},height=${height},top=${top},left=${left}`);
+        }
+        closePopup();
+    }
+
+    function saveScenario() {
+        const inputs = document.querySelectorAll('input');
+        let userResponses = {};
+        inputs.forEach(input => {
+            userResponses[input.placeholder] = input.value; // Usa o placeholder como chave
+        });
+
+        const firstFieldValue = userResponses[inputs[0].placeholder] || 'Cenario';
+        const fileName = firstFieldValue.substring(0, 10).replace(/\s+/g, '_') + '.json'; // Abrevia o nome
+
+        const blob = new Blob([JSON.stringify(userResponses, null, 2)], { type: 'application/json' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = fileName;
+        a.click();
+        URL.revokeObjectURL(url); // Libera o URL
+    }
+
+    function loadScenario() {
+        const inputFile = document.createElement('input');
+        inputFile.type = 'file';
+        inputFile.accept = '.json';
+        inputFile.onchange = e => {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+            reader.onload = event => {
+                const userResponses = JSON.parse(event.target.result);
+                const inputs = document.querySelectorAll('input');
+                inputs.forEach(input => {
+                    input.value = userResponses[input.placeholder] || ''; // Preenche os inputs
+                });
+            };
+            reader.readAsText(file);
+        };
+        inputFile.click(); // Abre o seletor de arquivos
+    }
+    </script>
+</body>
+</html>
